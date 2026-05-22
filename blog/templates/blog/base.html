@@ -1,0 +1,51 @@
+{% load static %}
+{% load account %} <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Blog</title>
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  
+</head>
+<body>
+
+  <header id="header" class="header d-flex align-items-center sticky-top shadow-sm bg-white py-3">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      
+      <a href="{% url 'home' %}" class="logo d-flex align-items-center text-decoration-none">
+        <h1 class="sitename m-0 text-primary fw-bold">Story</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul class="d-flex list-unstyled align-items-center m-0">
+          <li class="px-3"><a href="{% url 'home' %}" class="text-dark text-decoration-none">Home</a></li>
+          
+          {% if user.is_authenticated %}
+            <li class="px-3"><a href="/admin/" class="text-dark text-decoration-none">Admin</a></li>
+            <li class="px-3"><a href="{% url 'account_logout' %}" class="text-dark text-decoration-none">Logout</a></li>
+            <li class="px-3"><span class="badge bg-light text-dark">Hi, {{ user.email|truncatechars:15 }}</span></li>
+          {% else %}
+            <li class="px-3"><a href="{% url 'account_login' %}" class="text-dark text-decoration-none">Login</a></li>
+            <li class="ms-2">
+              <a href="{% url 'account_signup' %}" class="btn btn-primary text-white px-4">Join Now</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="container mt-5">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="footer mt-auto py-3 bg-light text-center">
+    <span class="text-muted">&copy; 2026 Story Blog. Created by Agboola.</span>
+  </footer>
+
+</body>
+</html>

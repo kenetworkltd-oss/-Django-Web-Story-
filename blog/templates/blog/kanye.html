@@ -1,0 +1,34 @@
+<!-- templates/blog/kanye_quotes.html -->
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h2>Kanye Says:</h2>
+    <div class="card shadow-lg p-4 bg-light">
+        <h3 id="quote-text">"{{ quote }}"</h3>
+    </div>
+    <p class="text-muted mt-3">Next refresh in: <span id="timer">10:00</span></p>
+</div>
+
+<script>
+    function fetchNewQuote() {
+        // We can either reload the page or use fetch()
+        location.reload(); 
+    }
+
+    // Timer logic for 10 minutes (600,000 milliseconds)
+    let timeLeft = 600;
+    const timerElement = document.getElementById('timer');
+
+    setInterval(() => {
+        timeLeft--;
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerElement.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        
+        if (timeLeft <= 0) {
+            fetchNewQuote();
+        }
+    }, 1000);
+</script>
+{% endblock %}

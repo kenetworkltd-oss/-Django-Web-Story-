@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% load socialaccount %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg border-0 p-4" style="width: 100%; max-width: 400px; border-radius: 15px;">
+        <div class="card-body text-center">
+            <h2 class="fw-bold mb-3 text-primary">Join Now</h2>
+            <p class="text-muted mb-4">Start your journey with us today</p>
+
+            <a href="{% provider_login_url 'google' %}" class="btn btn-outline-dark w-100 mb-3 d-flex align-items-center justify-content-center py-2" style="border-radius: 8px;">
+                <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" width="20" height="20" class="me-2">
+                Sign up with Gmail
+            </a>
+
+            <div class="d-flex align-items-center my-3">
+                <hr class="flex-grow-1">
+                <span class="mx-2 text-muted small">OR</span>
+                <hr class="flex-grow-1">
+            </div>
+
+            <form method="POST" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                <div class="text-start mb-3">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" style="border-radius: 8px;">Create Account</button>
+            </form>
+
+            <p class="mt-4 mb-0 small text-muted">
+                Already a member? <a href="{% url 'account_login' %}" class="text-primary fw-bold text-decoration-none">Login</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
